@@ -538,7 +538,7 @@ service qseecomd /system/bin/qseecomd
    writepid /dev/cpuset/system-background/tasks
 
 service perfd /system/vendor/bin/perfd
-    class main
+    class core
     user root
     group root readproc
     disabled
@@ -901,8 +901,8 @@ service qmiproxy /system/bin/qmiproxy
 
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /system/bin/qmuxd
-    class main
-    user root
+    class core
+    user radio
     group radio audio bluetooth gps nfc qcom_diag wakelock
     writepid /dev/cpuset/system-background/tasks
 
@@ -1077,10 +1077,6 @@ service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
     group system
     disabled
     oneshot
-
-on property:crypto.driver.load=1
-    insmod /system/lib/modules/qce.ko
-    insmod /system/lib/modules/qcedev.ko
 
 service drmdiag /system/bin/drmdiagapp
     class late_start
